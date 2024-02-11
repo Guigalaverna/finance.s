@@ -22,18 +22,31 @@ import {
   SelectValue,
 } from "./ui/select";
 
-import { z } from "zod";
+import { ZodError, z } from "zod";
 import { FormEvent, useContext, useState } from "react";
 import { Context } from "./providers/transaction-provider";
+import { toast } from "sonner";
 
 const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "O título é curto demais",
+  title: z
+    .string({
+      required_error: "É necessário informar o título da transação",
+    })
+    .min(1, {
+      message: "O título é curto demais",
+    }),
+  transactionType: z.enum(["income", "outcome"], {
+    required_error: "É necessário informar o tipo da transação",
   }),
-  transactionType: z.enum(["income", "outcome"]),
-  amount: z.number(),
-  date: z.date(),
-  category: z.string(),
+  amount: z.number({
+    required_error: "É necessário informar o valor monetário da transação",
+  }),
+  date: z.date({
+    required_error: "É necessário informar a data da transação",
+  }),
+  category: z.string({
+    required_error: "É necessário categorizar a transação",
+  }),
 });
 
 export function NewTransactionButton() {
@@ -43,30 +56,39 @@ export function NewTransactionButton() {
   const [amount, setAmount] = useState<number>();
   const [category, setCategory] = useState<string>();
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const { handleCreateTransaction } = useContext(Context);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    const result = formSchema.parse({
-      title,
-      amount,
-      transactionType,
-      date: new Date(date!),
-      category,
-    });
+    try {
+      const result = formSchema.parse({
+        title,
+        amount,
+        transactionType,
+        date: new Date(date!),
+        category,
+      });
 
-    handleCreateTransaction(
-      result.title,
-      result.amount,
-      result.transactionType,
-      result.date,
-      result.category
-    );
+      handleCreateTransaction(
+        result.title,
+        result.amount,
+        result.transactionType,
+        result.date,
+        result.category
+      );
+      setIsDialogOpen(false);
+    } catch (error: any) {
+      toast.error("Erro ao criar a transação", {
+        description: JSON.parse(error.message)[0].message,
+      });
+    }
   }
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={(e) => setIsDialogOpen(e)}>
       <DialogTrigger asChild>
         <Button className="flex items-center gap-2">
           <PlusCircle size={20} />

@@ -1,10 +1,20 @@
 "use client";
 
 import { Transaction } from "@/types/transaction";
-import { ReactNode, createContext, useLayoutEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 interface ContextData {
   transactions: Transaction[];
+
+  totalIncomes: number;
+  totalOutcomes: number;
+
   handleCreateTransaction(
     title: string,
     amount: number,
@@ -14,6 +24,7 @@ interface ContextData {
   ): void;
 
   handleDeleteTransaction(id: string): void;
+  calcSummary(): void;
 }
 
 export const Context = createContext({} as ContextData);
@@ -21,7 +32,6 @@ export const Context = createContext({} as ContextData);
 export function TransactionProvider({ children }: { children: ReactNode }) {
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
     const savedTransactions = localStorage.getItem("transactions");
-    console.log(savedTransactions);
 
     if (savedTransactions) {
       return JSON.parse(savedTransactions);
@@ -29,6 +39,49 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
       return [];
     }
   });
+
+  const [totalIncomes, setTotalIncomes] = useState<number>(0);
+  const [totalOutcomes, setTotalOutcomes] = useState<number>(0);
+
+  useEffect(() => {
+    const incomesTransactions = transactions.filter(
+      (transaction) => transaction.transactionType === "income"
+    );
+
+    const outcomesTransactions = transactions.filter(
+      (transaction) => transaction.transactionType === "outcome"
+    );
+
+    const sumOfIncomes = incomesTransactions.reduce(
+      (acc, t) => acc + t.amount,
+      0
+    );
+    const sumOfOutcomes = outcomesTransactions.reduce(
+      (acc, t) => acc + t.amount,
+      0
+    );
+
+    setTotalIncomes(sumOfIncomes);
+    setTotalOutcomes(sumOfOutcomes);
+  });
+
+  function calcSummary() {
+    setTotalIncomes(
+      transactions
+        .filter((transaction) => transaction.transactionType === "income")
+        .reduce((acc, transaction) => {
+          return acc + transaction.amount;
+        }, 0)
+    );
+
+    setTotalOutcomes(
+      transactions
+        .filter((transaction) => transaction.transactionType === "outcome")
+        .reduce((acc, transaction) => {
+          return acc + transaction.amount;
+        }, 0)
+    );
+  }
 
   function handleCreateTransaction(
     title: string,
@@ -48,7 +101,6 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
 
     const newTransactionArray = [newTransaction, ...transactions];
     localStorage.setItem("transactions", JSON.stringify(newTransactionArray));
-
     setTransactions(newTransactionArray);
   }
 
@@ -57,11 +109,8 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
       (transaction) => transaction.id !== id
     );
     localStorage.setItem("transactions", JSON.stringify(newTransactionArray));
-
     setTransactions(newTransactionArray);
   }
-
-  useLayoutEffect(() => {}, []);
 
   return (
     <Context.Provider
@@ -69,6 +118,9 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
         handleCreateTransaction,
         handleDeleteTransaction,
         transactions,
+        calcSummary,
+        totalIncomes,
+        totalOutcomes,
       }}
     >
       {children}

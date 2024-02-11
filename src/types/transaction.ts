@@ -3,5 +3,6 @@ export interface Transaction {
   title: string;
   date: Date;
   amount: number;
+  transactionType: "income" | "outcome";
   category: string;
 }
