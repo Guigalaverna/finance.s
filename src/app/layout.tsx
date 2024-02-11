@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TransactionProvider } from "@/components/providers/transaction-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Header } from "@/components/header";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,7 +32,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TransactionProvider>{children}</TransactionProvider>
+          <TransactionProvider>
+            <main>
+              <Header />
+              {children}
+            </main>
+          </TransactionProvider>
           <Toaster />
         </ThemeProvider>
       </body>

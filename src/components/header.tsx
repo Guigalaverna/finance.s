@@ -9,6 +9,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function Header() {
   const { setTheme } = useTheme();
@@ -16,10 +17,16 @@ export function Header() {
   return (
     <header className="flex items-center justify-between">
       <div className="flex items-center gap-5">
-        <span className="font-medium">finance.s</span>
+        <Link href="/">
+          <span className="font-medium">finance.s</span>
+        </Link>
         <nav>
-          <Button variant="link">Dashboard</Button>
-          <Button variant="link">Transações</Button>
+          <Link href="/">
+            <Button variant="link">Dashboard</Button>
+          </Link>
+          <Link href="/transactions">
+            <Button variant="link">Transações</Button>
+          </Link>
         </nav>
       </div>
       <div className="flex items-center gap-3">
