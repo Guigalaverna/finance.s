@@ -50,10 +50,10 @@ export function Header() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Avatar>
+        {/* <Avatar>
           <AvatarImage src="https://github.com/Guigalaverna.png" />
           <AvatarFallback>GG</AvatarFallback>
-        </Avatar>
+        </Avatar> */}
       </div>
     </header>
   );
