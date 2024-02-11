@@ -1,3 +1,4 @@
+"use client";
 import {
   Table,
   TableBody,
@@ -9,8 +10,11 @@ import {
 } from "@/components/ui/table";
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
+import { useTransactions } from "./providers/transaction-provider";
 
 export function RecentTransactionsTable({ className }: { className?: string }) {
+  const { transactions, removeTransaction } = useTransactions();
+
   return (
     <Table className={className}>
       <TableCaption>A list of your recent invoices.</TableCaption>
@@ -24,14 +28,24 @@ export function RecentTransactionsTable({ className }: { className?: string }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Array.from({ length: 5 }).map((item) => (
-          <TableRow key={Number(item)}>
-            <TableCell className="font-medium">02/06</TableCell>
-            <TableCell>McDonald's</TableCell>
-            <TableCell>R$250,00</TableCell>
-            <TableCell>Alimentação</TableCell>
+        {transactions.map((item) => (
+          <TableRow key={item.id}>
+            <TableCell className="font-medium">
+              {item.date.toISOString()}
+            </TableCell>
+            <TableCell>{item.title}</TableCell>
+            <TableCell>
+              {new Intl.NumberFormat("pt-br", {
+                style: "currency",
+                currency: "BRL",
+              }).format(item.amount)}
+            </TableCell>
+            <TableCell>{item.category}</TableCell>
             <TableCell className="flex items-end justify-end">
-              <Button variant="ghost">
+              <Button
+                variant="ghost"
+                onClick={() => removeTransaction(item.id)}
+              >
                 <X />
               </Button>
             </TableCell>
