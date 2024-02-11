@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TransactionProvider } from "@/components/providers/transaction-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TransactionProvider>{children}</TransactionProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

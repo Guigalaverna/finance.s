@@ -1,5 +1,6 @@
 "use client";
 import { ReactNode, createContext, useContext, useState } from "react";
+import { toast } from "sonner";
 
 interface Transaction {
   id: string;
@@ -86,8 +87,11 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
       };
 
       setTransactions([newTransaction, ...transactions]);
+      toast.success("Trasação criada");
       return true;
     } catch (error) {
+      toast.error("Erro ao criar uma transação");
+
       return false;
     }
   }
@@ -98,9 +102,12 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
       );
 
       setTransactions(transactionArray);
+      toast.success("Trasação removida");
 
       return true;
     } catch (error) {
+      toast.error("Error ao deletar a transação");
+
       return false;
     }
   }
