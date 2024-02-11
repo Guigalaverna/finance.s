@@ -1,6 +1,7 @@
 import { Cards } from "@/components/cards";
 import { NewTransactionButton } from "@/components/buttons/new-transaction-button";
 import { RecentTransactionsTable } from "@/components/recent-transaction-table";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (

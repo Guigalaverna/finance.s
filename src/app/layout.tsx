@@ -12,6 +12,7 @@ const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "finance.s",
 };
+export const dynamic = "force-dynamic";
 
 export default function RootLayout({
   children,

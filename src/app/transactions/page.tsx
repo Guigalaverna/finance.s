@@ -1,6 +1,7 @@
 import { NewTransactionButton } from "@/components/buttons/new-transaction-button";
 import { SaveToExcel } from "@/components/buttons/save-to-excel";
 import { RecentTransactionsTable } from "@/components/recent-transaction-table";
+export const dynamic = "force-dynamic";
 
 export default function Transactions() {
   return (
