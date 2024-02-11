@@ -18,7 +18,7 @@ export function Header() {
       <div className="flex items-center gap-5">
         <span className="font-medium">finance.s</span>
         <nav>
-          <Button variant="link">Home</Button>
+          <Button variant="link">Dashboard</Button>
           <Button variant="link">Transações</Button>
         </nav>
       </div>

@@ -24,17 +24,19 @@ export function RecentTransactionsTable({ className }: { className?: string }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell className="font-medium">02/06</TableCell>
-          <TableCell>McDonald's</TableCell>
-          <TableCell>R$250,00</TableCell>
-          <TableCell>Alimentação</TableCell>
-          <TableCell className="flex items-end justify-end">
-            <Button variant="ghost">
-              <X />
-            </Button>
-          </TableCell>
-        </TableRow>
+        {Array.from({ length: 5 }).map((item) => (
+          <TableRow key={Number(item)}>
+            <TableCell className="font-medium">02/06</TableCell>
+            <TableCell>McDonald's</TableCell>
+            <TableCell>R$250,00</TableCell>
+            <TableCell>Alimentação</TableCell>
+            <TableCell className="flex items-end justify-end">
+              <Button variant="ghost">
+                <X />
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

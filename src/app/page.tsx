@@ -1,7 +1,13 @@
 import { Header } from "@/components/header";
 import { RecentTransactionsTable } from "@/components/recent-transaction-table";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowDownCircle, ArrowUpCircle, DollarSign } from "lucide-react";
+import {
+  ArrowDownCircle,
+  ArrowUpCircle,
+  DollarSign,
+  PlusCircle,
+} from "lucide-react";
 
 export default function Home() {
   return (
@@ -9,14 +15,21 @@ export default function Home() {
       <Header />
 
       <section className="mt-10">
-        <header>
-          <h2 className="text-2xl font-bold">Olá, Guilherme</h2>
-          <span className="text-sm tracking-tight font-medium opacity-60">
-            Veja o resumo da semana
-          </span>
+        <header className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">Olá, Guilherme</h2>
+            <span className="text-sm tracking-tight font-medium opacity-60">
+              Veja o resumo da semana
+            </span>
+          </div>
+
+          <Button className="flex items-center gap-2">
+            <PlusCircle size={20} />
+            Nova transação
+          </Button>
         </header>
 
-        <div className="grid grid-cols-3 mt-5 gap-3">
+        <div className="grid grid-cols-3 mt-5 gap-5">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Entradas</CardTitle>
@@ -57,7 +70,7 @@ export default function Home() {
           </Card>
         </div>
 
-        <RecentTransactionsTable className="mt-5" />
+        <RecentTransactionsTable className="mt-10" />
       </section>
     </main>
   );
