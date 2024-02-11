@@ -1,10 +1,10 @@
 "use client";
 
 import { PlusCircle } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 import { Label } from "@/components/ui/label";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 
 import {
   Dialog,
@@ -20,11 +20,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "../ui/select";
 
 import { ZodError, z } from "zod";
 import { FormEvent, useContext, useState } from "react";
-import { Context } from "./providers/transaction-provider";
+import { Context } from "../providers/transaction-provider";
 import { toast } from "sonner";
 
 const formSchema = z.object({

@@ -1,6 +1,6 @@
 import { Cards } from "@/components/cards";
 import { Header } from "@/components/header";
-import { NewTransactionButton } from "@/components/new-transaction-button";
+import { NewTransactionButton } from "@/components/buttons/new-transaction-button";
 import { RecentTransactionsTable } from "@/components/recent-transaction-table";
 
 export default function Home() {

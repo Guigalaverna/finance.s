@@ -1,5 +1,8 @@
-import { NewTransactionButton } from "@/components/new-transaction-button";
+import { NewTransactionButton } from "@/components/buttons/new-transaction-button";
+import { SaveToExcel } from "@/components/buttons/save-to-excel";
 import { RecentTransactionsTable } from "@/components/recent-transaction-table";
+import { Button } from "@/components/ui/button";
+import { DownloadCloud } from "lucide-react";
 
 export default function Transactions() {
   return (
@@ -12,7 +15,10 @@ export default function Transactions() {
           </span>
         </div>
 
-        <NewTransactionButton />
+        <div className="flex items-center gap-3">
+          <SaveToExcel />
+          <NewTransactionButton />
+        </div>
       </header>
 
       <RecentTransactionsTable className="mt-10" />
