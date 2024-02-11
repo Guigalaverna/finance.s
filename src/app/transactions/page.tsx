@@ -1,8 +1,6 @@
 import { NewTransactionButton } from "@/components/buttons/new-transaction-button";
 import { SaveToExcel } from "@/components/buttons/save-to-excel";
 import { RecentTransactionsTable } from "@/components/recent-transaction-table";
-import { Button } from "@/components/ui/button";
-import { DownloadCloud } from "lucide-react";
 
 export default function Transactions() {
   return (

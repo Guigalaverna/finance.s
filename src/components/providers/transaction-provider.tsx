@@ -28,6 +28,7 @@ interface ContextData {
 }
 
 export const Context = createContext({} as ContextData);
+export const dynamic = "force-dynamic";
 
 export function TransactionProvider({ children }: { children: ReactNode }) {
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
